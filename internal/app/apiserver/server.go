@@ -8,12 +8,15 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+//Server object
 type server struct {
 	router *mux.Router
 	logger *logrus.Logger
 	store  store.Store
 }
 
+//Constructor for a server. It creates new server instance
+//with mux router, logger and our imported store.
 func newServer(store store.Store) *server {
 	s := &server{
 		router: mux.NewRouter(),
@@ -34,6 +37,7 @@ func (s *server) configureRouter() {
 	s.router.HandleFunc("/users", s.handleUsersCreate()).Methods("POST")
 }
 
+// middleware for ...
 func (s *server) handleUsersCreate() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 

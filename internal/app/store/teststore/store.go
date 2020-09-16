@@ -5,12 +5,13 @@ import (
 	"github.com/GShamian/tavern-of-games/internal/app/store"
 )
 
-// Store ...
+// Store object for tests only
 type Store struct {
 	userRepository *UserRepository
 }
 
-// New ...
+// New func. Empty constructor (default constructor) for testing
+// only store entities
 func New() *Store {
 	return &Store{}
 }

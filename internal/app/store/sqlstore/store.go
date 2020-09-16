@@ -8,13 +8,13 @@ import (
 	_ "github.com/lib/pq"
 )
 
-// Store ...
+// Store object, that is made to store information about DB
 type Store struct {
 	db             *sql.DB
 	userRepository *UserRepository
 }
 
-// New ...
+// New func. Constructor for Store object
 func New(db *sql.DB) *Store {
 	return &Store{
 		db: db,

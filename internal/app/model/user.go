@@ -6,7 +6,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-// User ...
+// User object that has id, email, password and encrypted password fields
 type User struct {
 	ID                int
 	Email             string
@@ -14,7 +14,7 @@ type User struct {
 	EncryptedPassword string
 }
 
-// Validate ...
+// Validate func. Validating user instance for id, email and password
 func (u *User) Validate() error {
 
 	return validation.ValidateStruct(
@@ -24,7 +24,8 @@ func (u *User) Validate() error {
 	)
 }
 
-// BeforeCreate ...
+// BeforeCreate func. Encrypting password func that encrypts password and writes encrypted
+// version in User's EncryptedPassword field
 func (u *User) BeforeCreate() error {
 	if len(u.Password) > 0 {
 		enc, err := encryptString(u.Password)
@@ -38,6 +39,9 @@ func (u *User) BeforeCreate() error {
 	return nil
 }
 
+// encryptString func. Using function GenerateFromPassword from bcrypt encrypts imported
+// string (original unencrypted password) to encrypted variation and
+// returns it
 func encryptString(s string) (string, error) {
 	b, err := bcrypt.GenerateFromPassword([]byte(s), bcrypt.MinCost)
 	if err != nil {
