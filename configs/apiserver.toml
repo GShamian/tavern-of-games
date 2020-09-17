@@ -1,3 +1,4 @@
 bind_addr = ":8080"
 log_level = "debug"
 database_url = "host=localhost port=5432 user=postgres password=120505Aa dbname=tavern_of_games_db sslmode=disable"
+session_key = "52a28f9d3f2eeabc5757fba4d5d6a1ec2b4c3e5a113b8794a544fec9c93961581cb291122dff58ee887a7"

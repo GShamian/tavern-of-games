@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/GShamian/tavern-of-games/internal/app/store/sqlstore"
+	"github.com/gorilla/sessions"
 )
 
 // Start function. Starts server.
@@ -17,8 +18,9 @@ func Start(config *Config) error {
 	defer db.Close()
 	//Creating Store instance with our db. Check store.go documentation.
 	store := sqlstore.New(db)
+	sessionStore := sessions.NewCookieStore([]byte(config.SessionKey))
 	//Creating server instance with our store. Check server.go documentation.
-	srv := newServer(store)
+	srv := newServer(store, sessionStore)
 	//Starting srv server with address from config
 	return http.ListenAndServe(config.BindAddr, srv)
 }
