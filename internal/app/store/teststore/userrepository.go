@@ -9,7 +9,7 @@ import (
 // UserRepository object for testing only
 type UserRepository struct {
 	store *Store
-	users map[string]*model.User
+	users map[int]*model.User
 }
 
 // Create func. Writing an email and encrypted password in the fields
@@ -24,8 +24,8 @@ func (r *UserRepository) Create(u *model.User) error {
 		return err
 	}
 
-	r.users[u.Email] = u
-	u.ID = len(r.users)
+	u.ID = len(r.users) + 1
+	r.users[u.ID] = u
 
 	return nil
 }
@@ -33,7 +33,19 @@ func (r *UserRepository) Create(u *model.User) error {
 // FindByEmail func. Finding user with the right (email we need) email.
 // Function for testing only purposes.
 func (r *UserRepository) FindByEmail(email string) (*model.User, error) {
-	u, ok := r.users[email]
+	for _, u := range r.users {
+		if u.Email == email {
+			return u, nil
+		}
+	}
+
+	return nil, store.ErrRecordNotFound
+}
+
+// Find func. Finding user with the right (id we need) id.
+// Function for testing only purposes.
+func (r *UserRepository) Find(id int) (*model.User, error) {
+	u, ok := r.users[id]
 	if !ok {
 		return nil, store.ErrRecordNotFound
 	}
