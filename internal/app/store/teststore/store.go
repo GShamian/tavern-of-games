@@ -16,7 +16,9 @@ func New() *Store {
 	return &Store{}
 }
 
-// User ...
+// User func. If userrepository is nil assigns it with
+// pointer on UserRepository which is initialised
+// with calling store and map of test users.
 func (s *Store) User() store.UserRepository {
 	if s.userRepository != nil {
 		return s.userRepository

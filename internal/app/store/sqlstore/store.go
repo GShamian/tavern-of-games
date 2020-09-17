@@ -21,7 +21,9 @@ func New(db *sql.DB) *Store {
 	}
 }
 
-// User ...
+// User func. If userrepository is nil assigns it with
+// pointer on UserRepository which is initialised
+// with calling store.
 func (s *Store) User() store.UserRepository {
 	if s.userRepository != nil {
 		return s.userRepository

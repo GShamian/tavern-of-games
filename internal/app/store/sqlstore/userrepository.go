@@ -13,7 +13,7 @@ type UserRepository struct {
 }
 
 // Create func. Writing an email and encrypted password in the fields
-// in DB that match to imported User
+// in DB that match to imported User.
 func (r *UserRepository) Create(u *model.User) error {
 	// Checking user's fields for incorrect entries
 	if err := u.Validate(); err != nil {
